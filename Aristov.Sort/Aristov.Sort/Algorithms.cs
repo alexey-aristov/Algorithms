@@ -107,5 +107,43 @@ namespace Aristov.Sort
                 }
             }
         }
+
+        public static T[] QuickSort<T>(this T[] source, ILog log = null) where T : IComparable
+        {
+            log = log ?? new LogEmpty();
+            return QuickSortInternal<T>(source, 0, source.Length, log);
+        }
+        private static T[] QuickSortInternal<T>(this T[] source, int first, int last, ILog log) where T : IComparable
+        {
+            log.IterationHeader($"from {first} to {last}");
+            log.IterationInfo(source);
+            if (first < last)
+            {
+                int pivot = PivotList(source, first, last, log);
+                source.QuickSortInternal(first, pivot, log);
+                source.QuickSortInternal(pivot + 1, last, log);
+            }
+            return source;
+        }
+
+        private static int PivotList<T>(this T[] source, int first, int last, ILog log) where T : IComparable
+        {
+            var pivotPoint = first;
+            var pivotValue = source[first];
+
+            for (int i = first + 1; i < last; i++)
+            {
+                if (source[i].CompareTo(pivotValue) < 0)
+                {
+                    pivotPoint++;
+                    source.Swap(pivotPoint, i);
+                    log.IterationInfo(source, "pivot({0}-{1}),{2}|", first, last, i);
+                }
+            }
+            source.Swap(first, pivotPoint);
+            log.IterationInfo(source, "pivot({0}-{1})|", first, last);
+            log.Line($"pivot({first}-{last})={pivotValue}");
+            return pivotPoint;
+        }
     }
 }
