@@ -53,7 +53,7 @@ namespace Perceptron
             }
             for (int i = 0; i < neuronErrorValues.Length; i++)
             {
-                _neurons[i].Out = neuronErrorValues[i];
+                _neurons[i].Error = neuronErrorValues[i];
             }
         }
 

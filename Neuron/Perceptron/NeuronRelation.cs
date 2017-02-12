@@ -31,7 +31,8 @@ namespace Perceptron
                 _prevIndex = currIndex,
                 _nextIndex = nextIndex
             };
-            relation.Weight = (decimal)_random.NextDouble() - 0.5m;
+            relation.Weight = (decimal) _random.NextDouble();// - 0.5m;
+           // relation.Weight =  0.5m;
 
             neuronOfCurrLayer.RelationsToNextLayer.Add(nextIndex, relation);
             neuronOfNextLayer.RelationsToPrevLayer.Add(currIndex, relation);

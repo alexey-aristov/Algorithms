@@ -5,9 +5,11 @@ namespace Perceptron
 {
     class Perceptron
     {
+        private readonly decimal _learningRate;
         private readonly Layer[] _layers;
-        public Perceptron(int[] neuronsInLayer)
+        public Perceptron(int[] neuronsInLayer,decimal learningRate)
         {
+            _learningRate = learningRate;
             _layers = neuronsInLayer.Select(Layer.GetNeuron).ToArray();
 
             for (int i = 0; i < _layers.Length; i++)
@@ -42,6 +44,7 @@ namespace Perceptron
                         var neuronFromPrevLayer = _layers[i - 1][k];
                         @out += neuronFromPrevLayer.RelationsToNextLayer[j].Weight * neuronFromPrevLayer.Out;
                     }
+                    _layers[i][j].Fe = @out;
                     _layers[i][j].Out = Activate(@out);
                 }
             }
@@ -68,14 +71,14 @@ namespace Perceptron
 
         public void AdjustWeights()
         {
-            for (int i = 1; i < _layers.Length - 1; i++)
+            for (int i = 1; i < _layers.Length; i++)
             {
                 for (int j = 0; j < _layers[i].Count; j++)
                 {
                     for (int k = 0; k < _layers[i - 1].Count; k++)
                     {
                         var currentNeuron = _layers[i][j];
-                        currentNeuron.RelationsToNextLayer[k].Weight += 0.5m * ActivateDerivative(currentNeuron.Error)*currentNeuron.Out;
+                        currentNeuron.RelationsToPrevLayer[k].Weight += _learningRate * currentNeuron.Error * ActivateDerivative(currentNeuron.Fe) * _layers[i-1][k].Out;
                     }
                 }
             }

@@ -12,6 +12,7 @@ namespace Perceptron
         public Dictionary<int, NeuronRelation> RelationsToNextLayer { get; set; } = new Dictionary<int, NeuronRelation>();
         public decimal Out { get; set; }
         public decimal Error { get; set; }
+        public decimal Fe { get; set; }
         private Layer _layer;
 
         private Neuron()
