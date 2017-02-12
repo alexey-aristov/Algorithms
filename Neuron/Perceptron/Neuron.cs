@@ -4,18 +4,18 @@ using System.Threading;
 
 namespace Perceptron
 {
-    [DebuggerDisplay("{_id},{_out},{_layer}")]
+    [DebuggerDisplay("id:{_id}, out:{Out}, layer:{_layer}")]
     class Neuron
     {
         private int _id;
-        public List<NeuronRelation> NeuronRelationsPrev= new List<NeuronRelation>();
-        public List<NeuronRelation> NeuronRelationsNext = new List<NeuronRelation>();
-        private decimal _out;
+        public Dictionary<int, NeuronRelation> RelationsToPrevLayer { get; set; } = new Dictionary<int, NeuronRelation>();
+        public Dictionary<int, NeuronRelation> RelationsToNextLayer { get; set; } = new Dictionary<int, NeuronRelation>();
+        public decimal Out { get; set; }
+        public decimal Error { get; set; }
         private Layer _layer;
 
         private Neuron()
-        {
-        }
+        { }
 
         #region factory
 

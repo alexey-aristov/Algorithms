@@ -45,9 +45,8 @@
   <ItemGroup>
     <Compile Include="Layer.cs" />
     <Compile Include="Neuron.cs" />
-    <Compile Include="NeuronFactory.cs" />
     <Compile Include="NeuronRelation.cs" />
-    <Compile Include="Perception.cs" />
+    <Compile Include="Perceptron.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
